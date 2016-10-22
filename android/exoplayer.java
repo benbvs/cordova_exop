@@ -1,8 +1,6 @@
-package org.apache.cordova.estat;
+package com.benbvs.cordova.exoplayer;
 
 import com.google.android.exoplayer2.*;
-//import fr.mediametrie.mesure.library.android.*;
-//import com.squareup.tape.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.apache.cordova.CordovaPlugin;
@@ -21,29 +19,28 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import android.net.Uri;
  
-public class estat extends CordovaPlugin {
+public class exoplayer extends CordovaPlugin {
  
-  public Boolean trackerStarted = false;
+  public Boolean playerStarted = false;
   private SimpleExoPlayer exoPlayer;
-  public String serial = "";
   
   private static final int BUFFER_SEGMENT_SIZE = 64 * 1024;
   private static final int BUFFER_SEGMENT_COUNT = 256;
   
   
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-    if("initEstat".equals(action)){
-      String id = args.getString(0);
-	  if(!trackerStarted) { Handler handler = new Handler();
-			TrackSelector trackSelector = new DefaultTrackSelector(handler);
-			LoadControl loadControl = new DefaultLoadControl();
-			exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl); }
-      callbackContext.success();
-      return true;
-    }else if("sendHitEstat".equals(action)){
-		if(args.length() == 1)
-		{			
-			Uri audioUri = Uri.parse("http://stream.basso.fi:8000/stream");
+    if("initPlayer".equals(action)){
+	  if(!playerStarted) { 
+		Handler handler = new Handler();
+		TrackSelector trackSelector = new DefaultTrackSelector(handler);
+		LoadControl loadControl = new DefaultLoadControl();
+		exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl);
+	  }
+      	callbackContext.success();
+      	return true;
+    }else if("play".equals(action)){
+		if(args.length() == 1){			
+			Uri audioUri = Uri.parse(args.getString(0));
 			DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("ExoPlayerDemo");
 			ExtractorsFactory extractor = new DefaultExtractorsFactory();
 			MediaSource audioSource = new ExtractorMediaSource(audioUri, dataSourceFactory, extractor, null, null);
