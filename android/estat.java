@@ -37,7 +37,7 @@ public class estat extends CordovaPlugin {
 	  if(!trackerStarted) { Handler handler = new Handler();
 			TrackSelector trackSelector = new DefaultTrackSelector(handler);
 			LoadControl loadControl = new DefaultLoadControl();
-			exoPlayer = ExoPlayerFactory.newSimpleInstance(callbackContext, trackSelector, loadControl); }
+			exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl); }
       callbackContext.success();
       return true;
     }else if("sendHitEstat".equals(action)){
