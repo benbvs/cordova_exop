@@ -11,6 +11,11 @@ import android.R;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
+import android.os.Handler;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
  
 public class estat extends CordovaPlugin {
  
