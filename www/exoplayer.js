@@ -20,6 +20,10 @@ exoplayer.play = function(url,success, fail) {
 	cordova.exec(success, fail, "exoplayer", "play", [url]);
 };
 
+exoplayer.stop = function(success, fail) {
+	cordova.exec(success, fail, "exoplayer", "stop", [false]);
+};
+
 // Event spawned when a notification is received while the application is active
 exoplayer.notificationCallback = function(notification) {
 	var ev = document.createEvent('HTMLEvents');
