@@ -40,7 +40,7 @@ public class exoplayer extends CordovaPlugin {
       	return true;
     }else if("play".equals(action)){
 		if(args.length() == 1){			
-			Uri audioUri = Uri.parse("http://stream.basso.fi:8000/stream");
+			Uri audioUri = Uri.parse("http://streaming.tendanceouest.com/tomanche.mp3");
 			DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("ExoPlayerDemo");
 			ExtractorsFactory extractor = new DefaultExtractorsFactory();
 			MediaSource audioSource = new ExtractorMediaSource(audioUri, dataSourceFactory, extractor, null, null);
