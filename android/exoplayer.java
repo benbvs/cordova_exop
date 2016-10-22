@@ -35,7 +35,7 @@ public class exoplayer extends CordovaPlugin {
 		TrackSelector trackSelector = new DefaultTrackSelector(handler);
 		LoadControl loadControl = new DefaultLoadControl();
 		exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl);
-	  
+	  	playerInitialised=true;
 	  }
       	callbackContext.success();
       	return true;
