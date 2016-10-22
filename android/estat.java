@@ -15,7 +15,10 @@ import android.os.Handler;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import android.net.Uri;
  
 public class estat extends CordovaPlugin {
  
@@ -33,7 +36,7 @@ public class estat extends CordovaPlugin {
 	  if(!trackerStarted) { Handler handler = new Handler();
 			TrackSelector trackSelector = new DefaultTrackSelector(handler);
 			LoadControl loadControl = new DefaultLoadControl();
-			exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl); }
+			exoPlayer = ExoPlayerFactory.newSimpleInstance(callbackContext, trackSelector, loadControl); }
       callbackContext.success();
       return true;
     }else if("sendHitEstat".equals(action)){
