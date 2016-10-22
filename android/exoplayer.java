@@ -40,7 +40,7 @@ public class exoplayer extends CordovaPlugin {
       	callbackContext.success();
       	return true;
     }else if("play".equals(action)){
-		if(args.length() == 1 && playerInitialised && !exoPlayer.getPlayWhenReady()){
+		if(args.length() == 1 && playerInitialised){
 			Uri audioUri = Uri.parse(args.getString(0));
 			DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("ExoPlayerDemo");
 			ExtractorsFactory extractor = new DefaultExtractorsFactory();
