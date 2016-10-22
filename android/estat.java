@@ -1,6 +1,6 @@
 package org.apache.cordova.estat;
 
-import com.google.android.exoplayer.*;
+import com.google.android.exoplayer2.*;
 //import fr.mediametrie.mesure.library.android.*;
 //import com.squareup.tape.*;
 import org.json.JSONArray;
