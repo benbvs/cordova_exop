@@ -15,7 +15,7 @@ import android.app.AlertDialog;
 public class estat extends CordovaPlugin {
  
   public Boolean trackerStarted = false;
-  private ExoPlayer exoPlayer;
+  private SimpleExoPlayer exoPlayer;
   public String serial = "";
   
   private static final int BUFFER_SEGMENT_SIZE = 64 * 1024;
@@ -25,24 +25,20 @@ public class estat extends CordovaPlugin {
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if("initEstat".equals(action)){
       String id = args.getString(0);
-	  if(!trackerStarted) { exoPlayer = ExoPlayer.Factory.newInstance(1); }
+	  if(!trackerStarted) { Handler handler = new Handler();
+			TrackSelector trackSelector = new DefaultTrackSelector(handler);
+			LoadControl loadControl = new DefaultLoadControl();
+			exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl); }
       callbackContext.success();
       return true;
     }else if("sendHitEstat".equals(action)){
 		if(args.length() == 1)
-		{
-			// String with the url of the radio you want to play
-			String url = args.getString(0);
-			Uri radioUri = Uri.parse(url);
-			// Settings for exoPlayer
-			Allocator allocator = new DefaultAllocator(BUFFER_SEGMENT_SIZE);
-			String userAgent = Util.getUserAgent(context, "ExoPlayerDemo");
-			DataSource dataSource = new DefaultUriDataSource(context, null, userAgent);
-			ExtractorSampleSource sampleSource = new ExtractorSampleSource(
-			radioUri, dataSource, allocator, BUFFER_SEGMENT_SIZE * BUFFER_SEGMENT_COUNT);
-			audioRenderer = new MediaCodecAudioTrackRenderer(sampleSource);
-			// Prepare ExoPlayer
-			exoPlayer.prepare(audioRenderer);
+		{			
+			Uri audioUri = Uri.parse("http://stream.basso.fi:8000/stream");
+			DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("ExoPlayerDemo");
+			ExtractorsFactory extractor = new DefaultExtractorsFactory();
+			MediaSource audioSource = new ExtractorMediaSource(audioUri, dataSourceFactory, extractor, null, null);
+			exoPlayer.prepare(audioSource);
 			exoPlayer.setPlayWhenReady(true);
 			callbackContext.success();
 		}
