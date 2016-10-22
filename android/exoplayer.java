@@ -30,18 +30,17 @@ public class exoplayer extends CordovaPlugin {
   
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if("initPlayer".equals(action)){
-	  
+	  if(!playerInitialised) { 
+		Handler handler = new Handler();
+		TrackSelector trackSelector = new DefaultTrackSelector(handler);
+		LoadControl loadControl = new DefaultLoadControl();
+		exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl);
+		playerInitialised=true;
+	  }
       	callbackContext.success();
       	return true;
     }else if("play".equals(action)){
-		if(args.length() == 1 && !exoPlayer.getPlayWhenReady()){
-			if(!playerInitialised) { 
-				Handler handler = new Handler();
-				TrackSelector trackSelector = new DefaultTrackSelector(handler);
-				LoadControl loadControl = new DefaultLoadControl();
-				exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl);
-				playerInitialised=true;
-			  }
+		if(args.length() == 1 && playerInitialised && !exoPlayer.getPlayWhenReady()){
 			Uri audioUri = Uri.parse(args.getString(0));
 			DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("ExoPlayerDemo");
 			ExtractorsFactory extractor = new DefaultExtractorsFactory();
@@ -54,7 +53,7 @@ public class exoplayer extends CordovaPlugin {
     }else if("stop".equals(action)){
 		if(playerInitialised && exoPlayer.getPlayWhenReady()){			
 			exoPlayer.stop();
-			exoPlayer.release();
+			//exoPlayer.release();
 			callbackContext.success();
 		}
       return true;
