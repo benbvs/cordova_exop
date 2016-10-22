@@ -13,7 +13,7 @@
 	<platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="exoplayer">
-                <param name="android-package" value="com.benbvs.cordova.exoplayer"/>
+                <param name="android-package" value="com.benbvs.cordova.exoplayer.exoplayer"/>
             </feature>
         </config-file>
 		<source-file src="android/exoplayer.java" target-dir="src/com/benbvs/cordova/exoplayer" />
