@@ -21,7 +21,7 @@ import android.net.Uri;
  
 public class exoplayer extends CordovaPlugin {
  
-  public Boolean playerStarted = false;
+  public Boolean playerInitialised = false;
   private SimpleExoPlayer exoPlayer;
   
   private static final int BUFFER_SEGMENT_SIZE = 64 * 1024;
@@ -30,22 +30,30 @@ public class exoplayer extends CordovaPlugin {
   
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if("initPlayer".equals(action)){
-	  if(!playerStarted) { 
+	  if(!playerInitialised) { 
 		Handler handler = new Handler();
 		TrackSelector trackSelector = new DefaultTrackSelector(handler);
 		LoadControl loadControl = new DefaultLoadControl();
 		exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl);
+	  
 	  }
       	callbackContext.success();
       	return true;
     }else if("play".equals(action)){
-		if(args.length() == 1){			
+		if(args.length() == 1 && playerInitialised){			
 			Uri audioUri = Uri.parse(args.getString(0));
 			DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("ExoPlayerDemo");
 			ExtractorsFactory extractor = new DefaultExtractorsFactory();
 			MediaSource audioSource = new ExtractorMediaSource(audioUri, dataSourceFactory, extractor, null, null);
 			exoPlayer.prepare(audioSource);
 			exoPlayer.setPlayWhenReady(true);
+			callbackContext.success();
+		}
+      return true;
+    }else if("stop".equals(action)){
+		if(playerInitialised){			
+			exoPlayer.stop();
+			exoPlayer.release();
 			callbackContext.success();
 		}
       return true;
