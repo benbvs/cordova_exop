@@ -12,8 +12,8 @@
 function exoplayer(){}
 
 // Call this to register for push notifications and retreive a push Token
-exoplayer.initPlayer = function(success, fail) {
-	cordova.exec(success, fail, "exoplayer", "initPlayer",false);
+exoplayer.initPlayer = function(serial, success, fail) {
+	cordova.exec(success, fail, "exoplayer", "initPlayer",[serial]);
 };
 
 exoplayer.play = function(url,success, fail) {
