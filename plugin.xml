@@ -7,7 +7,7 @@
     <description>Cordova exoplayer</description>
     <license>Apache 2.0</license>
     <keywords>cordova,exoplayer</keywords>
-	<js-module src="www/exoplayer.js" name="estat">
+	<js-module src="www/exoplayer.js" name="exoplayer">
     <clobbers target="exoplayer" />
 	</js-module>
 	<platform name="android">
