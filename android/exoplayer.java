@@ -53,6 +53,7 @@ public class exoplayer extends CordovaPlugin {
     }else if("stop".equals(action)){
 		if(playerInitialised && exoPlayer.getPlayWhenReady()){			
 			exoPlayer.stop();
+			exoPlayer.seekTo(0L);
 			//exoPlayer.release();
 			callbackContext.success();
 		}
