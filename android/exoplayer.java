@@ -35,6 +35,7 @@ public class exoplayer extends CordovaPlugin {
 		TrackSelector trackSelector = new DefaultTrackSelector(handler);
 		LoadControl loadControl = new DefaultLoadControl();
 		exoPlayer = ExoPlayerFactory.newSimpleInstance(this.cordova.getActivity().getApplicationContext(), trackSelector, loadControl);
+		exoPlayer.addListener(this);
 		playerInitialised=true;
 	  }
       	callbackContext.success();
@@ -63,6 +64,14 @@ public class exoplayer extends CordovaPlugin {
       return false;
     }
   }
+	
+@Override
+public void onPlayerStateChanged(boolean playWhenReady, int state) {
+    Log.d("exoplayer", "onPlayerStateChanged + " + playbackState);
+    if (state == ExoPlayer.STATE_ENDED){
+        //player back ended
+    }
+}
   
    
 }
