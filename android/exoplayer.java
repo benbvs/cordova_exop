@@ -3,6 +3,7 @@ package com.benbvs.cordova.exoplayer;
 import com.google.android.exoplayer2.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.apache.cordova.LOG;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import android.R;
